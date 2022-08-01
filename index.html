@@ -63,32 +63,31 @@
         <!-- Ditailed city info  -->
 
         <div class="ditailed-info col-4">
-          <h3 id="city-name">Kobe</h3>
-          <p class="ditailed-day" id="day-and-time">Sunday</p>
+          <h3 id="city-name"></h3>
+          <p class="ditailed-day" id="day-and-time"></p>
           <div class="ditailed-img">
             <img src="media/weather-icons/Sunny.png" alt="icon" />
           </div>
-          <div class="ditailed-temperature">
-            <span id="displayed-temp">26</span>
-            <span id="temp-units">
-              <span id="celsius-link">°C </span>
-              <!-- /
-              <a href="#" id="fahrenheit-link"> °F</a> -->
-            </span>
-          </div>
-          <div class="row max-min-temperature">
-            <p class="col-6">Max: 29 °C</p>
-            <p class="col-6">Min: 23 °C</p>
-          </div>
+          <ul class="ditailed-state">
+            <li id="description">Sunny</li>
+            <li>
+              <span id="displayed-temp"></span>
+              <span class="temp-units">
+                <span id="celsius-link">°C </span>
+                /
+                <a href="#" id="fahrenheit-link"> °F</a>
+              </span>
+            </li>
+          </ul>
         </div>
 
         <!-- Additional city info  -->
         <div class="additional-info col-8">
-          <div class="additional-section">
-            <p>Chance of precipitation: 60%</p>
-            <p>Humidity: 76%</p>
-            <p>Wind: 4 m/s</p>
-          </div>
+          <ul class="additional-section">
+            <li>Precipitation: <span id="humidity"></span>%</li>
+            <li>Humidity: <span id="humidity"></span>%</li>
+            <li>Wind: <span id="wind"></span> m/h</li>
+          </ul>
           <hr />
 
           <!-- Weather for week -->
@@ -139,10 +138,10 @@
     <!-- Footer -->
     <footer>
       <div class="footer-info">
-        Coded by
-        <a href="https://github.com/Morikachan" target="_blank"
-          >Oleksandra Mishchenko</a
+        <a href="https://github.com/Morikachan/shecodes-plus" target="_blank"
+          >Open-source code</a
         >
+        by Oleksandra Mishchenko
       </div>
     </footer>
   </body>
