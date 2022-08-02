@@ -1,7 +1,7 @@
 function displaySection(response) {
   console.log(response);
   let cityElement = document.querySelector("#city-name");
-  let tempElement = document.querySelector("#displayed-temp");
+  let temperatureElement = document.querySelector("#displayed-temp");
   let descriptionElement = document.querySelector("#description");
   let feelsElement = document.querySelector("#feels-like");
   let humidityElement = document.querySelector("#humidity");
@@ -11,7 +11,7 @@ function displaySection(response) {
   celsiusTemperature = response.data.main.temp;
 
   cityElement.innerHTML = response.data.name;
-  tempElement.innerHTML = Math.round(celsiusTemperature);
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
   descriptionElement.innerHTML = response.data.weather[0].description;
   feelsElement.innerHTML = Math.round(response.data.main.feels_like);
   humidityElement.innerHTML = response.data.main.humidity;
@@ -37,6 +37,25 @@ function hendleSubmit(event) {
   let cityInput = document.querySelector("#city-search-input");
   const cityValue = cityInput.value.toLowerCase();
   search(cityValue);
+}
+
+// Temperature
+
+function displayFahrenheitTemperature(event) {
+  event.preventDefault();
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+  let temperatureElement = document.querySelector("#displayed-temp");
+  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+}
+
+function displayCelsiusTemperature(event) {
+  event.preventDefault();
+  fahrenheitLink.classList.remove("active");
+  celsiusLink.classList.add("active");
+  let temperatureElement = document.querySelector("#displayed-temp");
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
 
 // Time
@@ -73,7 +92,15 @@ function currTimeChange() {
 
 currTimeChange();
 
+let celsiusTemperature = null;
+
 let submitForm = document.querySelector("#city-search");
 submitForm.addEventListener("submit", hendleSubmit);
+
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
+
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
 search("Kobe");

@@ -58,12 +58,11 @@ footer {
   letter-spacing: 1px;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
+footer a {
+  color: #b4d6ff;
 }
 
-a:hover {
+footer a:hover {
   color: #9fd3c7;
 }
 
@@ -157,15 +156,21 @@ a:hover {
   margin: 2px;
 }
 
-#celsius-link:hover,
-#fahrenheit-link:hover {
-  color: #b4d6ff;
-}
-
 .temp-units {
   position: relative;
   bottom: 7px;
   font-size: 16px;
+}
+
+.temp-units a {
+  color: #b4d6ff;
+  text-decoration: none;
+}
+
+.temp-units a.active {
+  color: inherit;
+  text-decoration: none;
+  cursor: default;
 }
 
 .img-container {
