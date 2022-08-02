@@ -1,54 +1,55 @@
-const date = new Date();
-
-let cityValue = "Kobe";
-
-const weekDays = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-
-const apiURL = "https://api.openweathermap.org/data/2.5/weather";
-const apiKey = "b5d50f19d48c01a3eb81e79fb9ec7ed2";
-const request = `${apiURL}?q=${cityValue}&lang=en&units=metric&appid=${apiKey}`;
-
-let dayElement = document.querySelector("#day-and-time");
-
-let submitForm = document.querySelector("#city-search");
-let cityHeading = document.querySelector("#city-name");
-submitForm.addEventListener("submit", citySubmit);
-
-let displayedTemp = document.querySelector("#displayed-temp");
-
-function showInfo(response) {
+function displaySection(response) {
   console.log(response);
-  const cityName = response.data.name;
-  const cityTemp = response.data.main.temp;
+  let cityElement = document.querySelector("#city-name");
+  let tempElement = document.querySelector("#displayed-temp");
+  let descriptionElement = document.querySelector("#description");
+  let feelsElement = document.querySelector("#feels-like");
+  let humidityElement = document.querySelector("#humidity");
+  let windElement = document.querySelector("#wind");
 
-  cityHeading.innerHTML = `${cityName}`;
-  displayedTemp.innerHTML = `${Math.round(cityTemp)}`;
+  celsiusTemperature = response.data.main.temp;
+
+  cityElement.innerHTML = response.data.name;
+  tempElement.innerHTML = Math.round(celsiusTemperature);
+  descriptionElement.innerHTML = response.data.weather[0].description;
+  feelsElement.innerHTML = Math.round(response.data.main.feels_like);
+  humidityElement.innerHTML = response.data.main.humidity;
+  windElement.innerHTML = Math.round(response.data.wind.speed);
 }
-
-axios.get(request).then(showInfo);
 
 // Search func
 
-function citySubmit(event) {
+function search(city) {
+  const apiKey = "b5d50f19d48c01a3eb81e79fb9ec7ed2";
+  const apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=en&units=metric&appid=${apiKey}`;
+  axios.get(apiURL).then(displaySection);
+}
+
+function hendleSubmit(event) {
   event.preventDefault();
 
   let cityInput = document.querySelector("#city-search-input");
   const cityValue = cityInput.value.toLowerCase();
-  const request = `${apiURL}?q=${cityValue}&lang=en&units=metric&appid=${apiKey}`;
-  axios.get(request).then(showInfo);
+  search(cityValue);
 }
 
 // Time
 
 function currTimeChange() {
+  const date = new Date();
+
+  const weekDays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  let dayElement = document.querySelector("#day-and-time");
+
   const day = weekDays[date.getDay()];
   let hours = date.getHours();
   let minutes = date.getMinutes();
@@ -61,7 +62,12 @@ function currTimeChange() {
     hours = `0${hours}`;
   }
 
-  dayElement.innerHTML = `${day} &nbsp ${hours}:${minutes}`;
+  dayElement.innerHTML = `${day}, ${hours}:${minutes}`;
 }
 
 currTimeChange();
+
+let submitForm = document.querySelector("#city-search");
+submitForm.addEventListener("submit", hendleSubmit);
+
+search("Kobe");
