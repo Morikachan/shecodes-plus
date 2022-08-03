@@ -1,3 +1,24 @@
+const weatherIcons = {
+  "01d": "media/weather-icons/clear-sky-d.png",
+  "01n": "media/weather-icons/clear-sky-n.png",
+  "02d": "media/weather-icons/few-clouds-d.png",
+  "02n": "media/weather-icons/few-clouds-n.png",
+  "03d": "media/weather-icons/scattered-clouds.png",
+  "03n": "media/weather-icons/scattered-clouds.png",
+  "04d": "media/weather-icons/broken-clouds.png",
+  "04n": "media/weather-icons/broken-clouds.png",
+  "09d": "media/weather-icons/shower-rain.png",
+  "09n": "media/weather-icons/shower-rain.png",
+  "10d": "media/weather-icons/rain-d.png",
+  "10n": "media/weather-icons/rain-n.png",
+  "11d": "media/weather-icons/thunderstorm.png",
+  "11n": "media/weather-icons/thunderstorm.png",
+  "13d": "media/weather-icons/snow-d.png",
+  "13n": "media/weather-icons/snow-n.png",
+  "50d": "media/weather-icons/mist.png",
+  "50n": "media/weather-icons/mist.png",
+};
+
 function displaySection(response) {
   let cityElement = document.querySelector("#city-name");
   let temperatureElement = document.querySelector("#displayed-temp");
@@ -17,7 +38,7 @@ function displaySection(response) {
   windElement.innerHTML = Math.round(response.data.wind.speed);
   iconElement.setAttribute(
     "src",
-    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+    `${weatherIcons[response.data.weather[0].icon]}`
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
 
@@ -52,9 +73,7 @@ function displayForecast(response) {
               <p class="forecast-week-date">${formatDay(forecastDay.dt)}</p>
               <div class="img-container">
                 <img
-              src="http://openweathermap.org/img/wn/${
-                forecastDay.weather[0].icon
-              }@2x.png"
+              src="${weatherIcons[forecastDay.weather[0].icon]}"
               alt="icon"
             />
               </div>
