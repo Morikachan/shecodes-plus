@@ -1,5 +1,4 @@
 function displaySection(response) {
-  console.log(response);
   let cityElement = document.querySelector("#city-name");
   let temperatureElement = document.querySelector("#displayed-temp");
   let descriptionElement = document.querySelector("#description");
@@ -21,6 +20,57 @@ function displaySection(response) {
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
+
+  getForecast(response.data.coord);
+}
+
+function getForecast(coordinates) {
+  const apiKey = "b5d50f19d48c01a3eb81e79fb9ec7ed2";
+  const apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&units=metric&appid=${apiKey}`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[day];
+}
+
+function displayForecast(response) {
+  const dailyForecast = response.data.daily;
+
+  let forecastElement = document.querySelector(".forecast-week");
+  let forecastHTML = ``;
+
+  dailyForecast.forEach((forecastDay, index) => {
+    if (index < 6 && index !== 0) {
+      console.log(forecastDay);
+      forecastHTML += `
+    <div class="col-2">
+              <p class="forecast-week-date">${formatDay(forecastDay.dt)}</p>
+              <div class="img-container">
+                <img
+              src="http://openweathermap.org/img/wn/${
+                forecastDay.weather[0].icon
+              }@2x.png"
+              alt="icon"
+            />
+              </div>
+              <div class="forecast-week-temperatures">
+                <span class="forecast-week-temperature-max">
+                  ${Math.round(forecastDay.temp.max)}°
+                </span>
+                <span class="forecast-week-temperature-min">
+                  ${Math.round(forecastDay.temp.min)}°
+                </span>
+              </div>
+            </div>`;
+    }
+  });
+
+  forecastElement.innerHTML = forecastHTML;
 }
 
 // Search func

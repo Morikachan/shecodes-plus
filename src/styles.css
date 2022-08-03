@@ -179,15 +179,37 @@ footer a:hover {
   margin-bottom: 6px;
 }
 
-.report-week {
+.forecast-week {
   display: flex;
   justify-content: space-around;
   text-align: center;
-  padding: 15px;
+  padding-bottom: 15px;
+}
+
+.forecast-week-date {
+  font-weight: 600;
+  opacity: 0.84;
+  margin: 5px;
+  font-size: 18px;
+}
+
+.forecast-week-temperatures {
+  display: flex;
+  justify-content: space-between;
+}
+
+.forecast-week-temperature-max {
+  color: #9fd3c7;
+  font-weight: 600;
+}
+
+.forecast-week-temperature-min {
+  color: #b4d6ff;
+  opacity: 0.7;
 }
 
 .additional-section {
-  margin-top: 20px;
+  margin-top: 14px;
   padding: 5px 40px;
   text-align: right;
   font-size: 1.3em;
